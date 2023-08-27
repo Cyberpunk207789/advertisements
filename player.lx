@@ -1,0 +1,20 @@
+$ stdpath '%StdPackages%'
+$ include 'engine.amgp' as 'engine' 
+
+$ namespace merge _DEFAULT + engine
+
+behaviour Player: baseObjectBehaviour
+    func Player.@constructor <0> () {
+        local velocity <vector3> = [0,0,0]
+        local speed <int> <#public> = 0
+        local onTick <eventReciever> = eventReciever( gameloop.events.onTick, 'default' )
+    }
+
+    func Player.onTick.bindFunction (delta <int>) {
+        .Position += (.velocity * .speed * delta)
+    }
+
+
+$ export {
+    Player
+}
